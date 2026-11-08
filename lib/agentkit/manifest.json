@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "version": "1.0.0",
+  "product": "pipmcp",
+  "credential": "PIPMCP_API_KEY",
+  "skills": [
+    {
+      "name": "pipmcp-digitalocean",
+      "description": "Connect AI agents to DigitalOcean using one PipMCP API key and actual hosted tool discovery."
+    }
+  ],
+  "files": {
+    "skills/pipmcp-digitalocean/SKILL.md": "c8c5b32aba35a9ea471d27d6be1b08c9ad37593a3481e4e56a1ff59468f74157"
+  }
+}

@@ -2,348 +2,62 @@
   "schemaVersion": 1,
   "id": "digitalocean-mcp",
   "kind": "provider-connector",
-  "artifactType": "connector",
-  "qualityVersion": 2,
+  "product": "pipmcp",
   "title": "DigitalOcean MCP server",
-  "description": "Inventory infrastructure and create an approved project container. Read provider data first, then explicitly approve the selected change with operator write opt-in and a unique per-call approval key.",
+  "description": "Use DigitalOcean with AI agents through one PipMCP API key, actual hosted schemas and governed execution.",
   "status": "ready",
   "verification": "mock-only",
   "releaseEligible": true,
+  "operationIds": [],
   "maintainer": "jannikco",
   "license": "MIT",
-  "product": "pipmcp",
-  "appSlug": "digitalocean",
-  "appName": "DigitalOcean",
-  "operationIds": [
-    "list_projects",
-    "list_droplets",
-    "create_project"
-  ],
-  "sourceRevision": "9a5dec3a9ab67eacce00032cb85816b1de5d5c402e13aa4c96515a83456f1a32",
+  "attributionSlug": "github-digitalocean-mcp",
+  "sourceRevision": "3e861e6b86af5dbd6c841b789bf2def0109f28c191f2e39ff5bffefc815b4bd2",
+  "qualityVersion": 2,
+  "artifactType": "connector",
   "evidence": [
-    "Actual tools/call and direct-provider request contract tests"
+    "Gateway HTTP transport fixtures",
+    "Generated stdio wrapper discovery/call fixtures"
   ],
   "provenance": [
     "https://docs.digitalocean.com/reference/api/reference/projects/",
     "https://raw.githubusercontent.com/digitalocean/openapi/master/specification/DigitalOcean-public.v2.yaml"
   ],
-  "attributionSlug": "github-digitalocean-mcp",
-  "connectorId": "digitalocean",
-  "connector": {
-    "id": "digitalocean",
-    "appSlug": "digitalocean",
-    "name": "DigitalOcean",
-    "version": "0.2.0",
-    "baseUrl": "https://api.digitalocean.com/v2",
-    "auth": {
-      "type": "bearer",
-      "env": "DIGITALOCEAN_ACCESS_TOKEN"
-    },
-    "tools": [
-      {
-        "name": "list_projects",
-        "description": "List projects.",
-        "method": "GET",
-        "path": "/projects",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "page": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100000
-            },
-            "per_page": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {
-            "page": "page",
-            "per_page": "per_page"
-          },
-          "body": {}
-        },
-        "sampleArguments": {
-          "per_page": 10
-        },
-        "provenance": [
-          "https://docs.digitalocean.com/reference/api/reference/projects/",
-          "https://raw.githubusercontent.com/digitalocean/openapi/master/specification/DigitalOcean-public.v2.yaml"
-        ],
-        "approvalRequired": false,
-        "evidence": {
-          "providerLiveValidation": "not-run",
-          "localValidation": "provider-request-fixture"
-        }
-      },
-      {
-        "name": "list_droplets",
-        "description": "List droplets.",
-        "method": "GET",
-        "path": "/droplets",
-        "readOnly": true,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "page": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 100000
-            },
-            "per_page": {
-              "type": "integer",
-              "minimum": 1,
-              "maximum": 200
-            }
-          },
-          "required": [],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {
-            "page": "page",
-            "per_page": "per_page"
-          },
-          "body": {}
-        },
-        "sampleArguments": {
-          "per_page": 10
-        },
-        "provenance": [
-          "https://docs.digitalocean.com/reference/api/reference/projects/",
-          "https://raw.githubusercontent.com/digitalocean/openapi/master/specification/DigitalOcean-public.v2.yaml"
-        ],
-        "approvalRequired": false,
-        "evidence": {
-          "providerLiveValidation": "not-run",
-          "localValidation": "provider-request-fixture"
-        }
-      },
-      {
-        "name": "create_project",
-        "description": "Create project.",
-        "method": "POST",
-        "path": "/projects",
-        "readOnly": false,
-        "inputSchema": {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 2048,
-              "description": "Value"
-            },
-            "purpose": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 2048,
-              "description": "Value"
-            },
-            "description": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 2048,
-              "description": "Value"
-            },
-            "environment": {
-              "type": "string",
-              "enum": [
-                "Development",
-                "Staging",
-                "Production"
-              ]
-            }
-          },
-          "required": [
-            "name",
-            "purpose"
-          ],
-          "additionalProperties": false
-        },
-        "bindings": {
-          "path": [],
-          "query": {},
-          "body": {
-            "name": "name",
-            "purpose": "purpose",
-            "description": "description",
-            "environment": "environment"
-          }
-        },
-        "sampleArguments": {
-          "name": "Reviewed project",
-          "purpose": "Web Application"
-        },
-        "provenance": [
-          "https://docs.digitalocean.com/reference/api/reference/projects/",
-          "https://raw.githubusercontent.com/digitalocean/openapi/master/specification/DigitalOcean-public.v2.yaml"
-        ],
-        "approvalRequired": true,
-        "evidence": {
-          "providerLiveValidation": "not-run",
-          "localValidation": "provider-request-fixture"
-        }
-      }
-    ],
-    "workflow": {
-      "name": "Inventory infrastructure and create an approved project container",
-      "description": "Inventory infrastructure and create an approved project container. Read provider data first, then explicitly approve the selected change with operator write opt-in and a unique per-call approval key.",
-      "steps": [
-        "list_projects",
-        "list_droplets",
-        "create_project"
-      ]
-    },
-    "provenance": [
-      "https://docs.digitalocean.com/reference/api/reference/projects/",
-      "https://raw.githubusercontent.com/digitalocean/openapi/master/specification/DigitalOcean-public.v2.yaml"
-    ],
-    "verification": "mock-only",
-    "providerLiveValidation": "not-run",
-    "capabilityEvidence": {
-      "local": {
-        "level": "Tested",
-        "operations": [
-          {
-            "name": "list_projects",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "list_droplets",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          },
-          {
-            "name": "create_project",
-            "level": "Tested",
-            "evidenceRefs": [
-              "Provider request/stdio contract tests"
-            ],
-            "method": "contract-fixture"
-          }
-        ],
-        "evidenceRefs": [
-          "Provider request/stdio contract tests"
-        ],
-        "mode": "local"
-      },
-      "managed": {
-        "level": "Documented",
-        "operations": [
-          {
-            "name": "list_projects",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "list_droplets",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          },
-          {
-            "name": "create_project",
-            "level": "Documented",
-            "evidenceRefs": [],
-            "method": "documentation"
-          }
-        ],
-        "evidenceRefs": [],
-        "mode": "managed"
-      }
-    },
-    "repoId": "digitalocean-mcp",
-    "product": "pipmcp",
-    "artifactType": "connector",
-    "sourceRevision": "9a5dec3a9ab67eacce00032cb85816b1de5d5c402e13aa4c96515a83456f1a32",
-    "managedAvailability": {
-      "status": "listed",
-      "checkedAt": "2026-11-08T13:20:45.156456+00:00"
-    }
+  "utility": {
+    "problem": "Inventory infrastructure and create an approved project container. Read provider data first, then explicitly approve the selected change with operator write opt-in and a unique per-call approval key.",
+    "output": "Actual hosted tool schemas and durable governed execution receipts"
   },
+  "appSlug": "digitalocean",
+  "appName": "DigitalOcean",
+  "connectorId": "digitalocean",
+  "executionAuthority": "pipmcp-gateway",
+  "version": "1.0.0",
+  "agentReady": true,
   "capabilityEvidence": {
     "local": {
       "level": "Tested",
       "operations": [
         {
-          "name": "list_projects",
+          "name": "gateway_transport",
           "level": "Tested",
+          "method": "contract-fixture",
           "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "list_droplets",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
-        },
-        {
-          "name": "create_project",
-          "level": "Tested",
-          "evidenceRefs": [
-            "Provider request/stdio contract tests"
-          ],
-          "method": "contract-fixture"
+            "Generated gateway/stdio fixtures"
+          ]
         }
       ],
       "evidenceRefs": [
-        "Provider request/stdio contract tests"
+        "Generated gateway/stdio fixtures"
       ],
       "mode": "local"
     },
     "managed": {
       "level": "Documented",
-      "operations": [
-        {
-          "name": "list_projects",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "list_droplets",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        },
-        {
-          "name": "create_project",
-          "level": "Documented",
-          "evidenceRefs": [],
-          "method": "documentation"
-        }
-      ],
+      "operations": [],
       "evidenceRefs": [],
       "mode": "managed"
     }
   },
-  "utility": {
-    "problem": "Inventory infrastructure and create an approved project container. Read provider data first, then explicitly approve the selected change with operator write opt-in and a unique per-call approval key.",
-    "output": "Actual provider API results through local MCP tools"
-  },
-  "providerDocs": "https://docs.digitalocean.com/reference/api/reference/projects/",
   "factory": "leadadapter-pipmcp",
-  "generatorVersion": 2
+  "generatorVersion": 3
 }
